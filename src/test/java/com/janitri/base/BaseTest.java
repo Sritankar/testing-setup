@@ -1,7 +1,6 @@
 package com.janitri.base;
 
-import java.time.Duration;
-
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,7 +10,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BaseTest {
     
@@ -48,6 +49,8 @@ public class BaseTest {
             case "chrome":
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
+                
+                // Handle notifications and permissions
                 chromeOptions.addArguments("--disable-notifications");
                 chromeOptions.addArguments("--disable-popup-blocking");
                 chromeOptions.addArguments("--disable-web-security");
@@ -56,13 +59,26 @@ public class BaseTest {
                 chromeOptions.addArguments("--no-sandbox");
                 chromeOptions.addArguments("--disable-dev-shm-usage");
                 chromeOptions.addArguments("--remote-allow-origins=*");
+                
+                // Handle permission requests automatically
+                Map<String, Object> prefs = new HashMap<>();
+                prefs.put("profile.default_content_setting_values.notifications", 2); // Block notifications
+                prefs.put("profile.default_content_setting_values.geolocation", 2); // Block location
+                prefs.put("profile.default_content_setting_values.media_stream", 2); // Block camera/mic
+                chromeOptions.setExperimentalOption("prefs", prefs);
+                
                 driver.set(new ChromeDriver(chromeOptions));
                 break;
                 
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
+                
+                // Handle notifications and permissions for Firefox
                 firefoxOptions.addPreference("dom.webnotifications.enabled", false);
+                firefoxOptions.addPreference("geo.enabled", false);
+                firefoxOptions.addPreference("media.navigator.enabled", false);
+                
                 driver.set(new FirefoxDriver(firefoxOptions));
                 break;
                 
