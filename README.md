@@ -1,11 +1,16 @@
 How to Run the Code:
+
 bash# Run the updated tests
+
 mvn clean test
 
+
 # Or run just the connectivity test first
+
 mvn test -Dtest=ConnectivityTest
 
 # Then run the main tests
+
 mvn test -Dtest=LoginPageTest
 
 
