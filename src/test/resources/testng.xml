@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="JanitriLoginPageAutomationSuite" verbose="1">
+    
+    <parameter name="browser" value="chrome"/>
+    
+    <test name="ConnectivityTest" preserve-order="true">
+        <classes>
+            <class name="com.janitri.tests.ConnectivityTest">
+                <methods>
+                    <include name="testUrlConnectivity"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <test name="LoginPageTests" preserve-order="true">
+        <classes>
+            <class name="com.janitri.tests.LoginPageTest">
+                <methods>
+                    <include name="testLoginButtonDisabledWhenFieldsAreEmpty"/>
+                    <include name="testPasswordMaskingAndToggle"/>
+                    <include name="testInvalidLoginShowsErrorMessage"/>
+                    <include name="testPageElementsPresence"/>
+                    <include name="testBlankFieldsLoginAttempt"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+</suite>

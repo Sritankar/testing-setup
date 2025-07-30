@@ -1,0 +1,4 @@
+com\janitri\base\BaseTest.class
+com\janitri\pages\LoginPage.class
+com\janitri\tests\ConnectivityTest.class
+com\janitri\tests\LoginPageTest.class
